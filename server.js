@@ -6,17 +6,32 @@ const {shuffleArray} = require('./utils')
 
 app.use(express.json())
 
-let Rollbar = require('rollbar')
+
 let rollbar = new Rollbar({
-  accessToken: process.env.Primary_Key,
+  accessToken: process.env.Pass_Key,
   captureUncaught: true,
   captureUnhandledRejections: true,
 })
 
 // record a generic message and send it to Rollbar
 //rollbar.log('Hello world!')
+//been having problems with setting up rollbar account
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/index.html"));
+    rollbar.info('html folder served succesfully')
+    });
 
-
+app.get("/public", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/index.css"));
+    rollbar.info('index folder served succesfully')
+    });
+    
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/index.js"));
+    rollbar.info('html folder served succesfully')
+     });
+        
+            
 
 
 
